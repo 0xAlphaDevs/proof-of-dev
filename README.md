@@ -43,8 +43,8 @@ POD is a sybil resistant Web3 Builder reputation protocol. Endorse and get recog
 **_Profile Page_**
 ![image](/public/appDemo/profile-page.png)
 
-**_Search POD Identity_**
-![image](/public/appDemo/search-pod-identity.png)
+**_Search POD User_**
+![image](/public/appDemo/search-pod-user.png)
 
 **_Endorsement Page_**
 ![image](/public/appDemo/endorsement-page.png)
