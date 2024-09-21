@@ -11,10 +11,13 @@ import {
 } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { createPublicClient, getContract, http, namehash } from "viem";
-import { sepolia } from "viem/chains";
 import { address, abi } from "@/lib/contracts/ENSRegistryWithFallback.json";
 import { useRouter } from "next/navigation";
+import { useWriteContract } from "wagmi";
+import {
+  address as podAddress,
+  abi as podAbi,
+} from "@/lib/contracts/PODProfile.json";
 
 interface FormData {
   username: string;
@@ -26,6 +29,8 @@ interface FormData {
 
 export function UserDetails() {
   const router = useRouter();
+
+  const { writeContract } = useWriteContract();
   const [formData, setFormData] = React.useState<FormData>({
     username: "",
     bio: "",
@@ -45,6 +50,19 @@ export function UserDetails() {
     e.preventDefault();
     console.log(formData);
     // localStorage.setItem("pod-identity", JSON.stringify(formData));
+
+    writeContract({
+      address: podAddress as `0x${string}`,
+      abi: podAbi,
+      functionName: "setUserProfile",
+      args: [
+        formData.username,
+        formData.bio,
+        formData.twitter,
+        formData.github,
+        formData.farcaster,
+      ],
+    });
 
     // router.push("/profile");
   };

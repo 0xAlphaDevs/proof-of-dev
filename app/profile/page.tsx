@@ -6,7 +6,7 @@ import {
   AvatarImage,
 } from "@/app/components/ui/avatar";
 import { Button } from "@/app/components/ui/button";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { getNamesForAddress } from "@ensdomains/ensjs/subgraph";
 import { http } from "viem";
 import { sepolia } from "viem/chains";
@@ -23,6 +23,10 @@ import {
   CardTitle,
 } from "../components/ui/card";
 import Image from "next/image";
+import {
+  address as podAddress,
+  abi as podAbi,
+} from "@/lib/contracts/PODProfile.json";
 
 // Star Rating Component
 const StarRating = ({ rating }: { rating: number }) => {
@@ -46,62 +50,82 @@ const Profile = () => {
     farcaster: "..",
   });
 
-  async function getSubnames(address: string) {
-    // const subnames = await fetch(
-    //   `https://api.ens.domains/subnames/${address}`
-    // ).then((res) => res.json());
-    // console.log(subnames);
-    // Create the client
-    const client = createEnsPublicClient({
-      chain: sepolia,
-      transport: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
-    });
-
-    // Use the client
-    // const ethAddress = await client.getAddressRecord({ name: "test1.pod.eth" });
-    // console.log(ethAddress);
-
-    // @ts-expect-error - leave this alone
-    const result = await getNamesForAddress(client, {
-      address: address,
-      filter: {
-        wrappedOwner: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C",
-      },
-    });
-
-    console.log(result);
-  }
+  const { data: user } = useReadContract({
+    address: podAddress as `0x${string}`,
+    abi: podAbi,
+    functionName: "getUserProfile",
+    args: [address],
+  });
 
   useEffect(() => {
-    getSubnames(address as string);
-  }, [address]);
-
-  function test() {
-    // getSubnames(address);
-    const nameHash = namehash("test1.pod.eth");
-    console.log(nameHash);
-
-    // console.log(nameHash);
-    // createEndorsementAttestation();
-    // getAttestationsForUser();
-    // getAttestation("onchain_evm_11155111_0x335");
-  }
-
-  useEffect(() => {
-    const data = localStorage.getItem("pod-identity");
-    if (data) {
-      const parsedData = JSON.parse(data);
-      console.log(parsedData);
-      setData(parsedData);
+    if (user) {
+      console.log(user);
+      setData({
+        username: user?.username,
+        bio: user?.bio,
+        github: user?.github,
+        twitter: user?.twitter,
+        farcaster: user?.farcaster,
+      });
     }
-  }, []);
+  }, [user]);
+
+  // async function getSubnames(address: string) {
+  //   // const subnames = await fetch(
+  //   //   `https://api.ens.domains/subnames/${address}`
+  //   // ).then((res) => res.json());
+  //   // console.log(subnames);
+  //   // Create the client
+  //   const client = createEnsPublicClient({
+  //     chain: sepolia,
+  //     transport: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
+  //   });
+
+  //   // Use the client
+  //   // const ethAddress = await client.getAddressRecord({ name: "test1.pod.eth" });
+  //   // console.log(ethAddress);
+
+  //   // @ts-expect-error - leave this alone
+  //   const result = await getNamesForAddress(client, {
+  //     address: address,
+  //     filter: {
+  //       wrappedOwner: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C",
+  //     },
+  //   });
+
+  //   console.log(result);
+  // }
+
+  // useEffect(() => {
+  //   getSubnames(address as string);
+  // }, [address]);
+
+  // function test() {
+  //   // getSubnames(address);
+  //   const nameHash = namehash("test1.pod.eth");
+  //   console.log(nameHash);
+
+  //   // console.log(nameHash);
+  //   // createEndorsementAttestation();
+  //   // getAttestationsForUser();
+  //   // getAttestation("onchain_evm_11155111_0x335");
+  // }
+
+  // useEffect(() => {
+  // const data = localStorage.getItem("pod-identity");
+  // if (data) {
+  //   const parsedData = JSON.parse(data);
+  //   console.log(parsedData);
+  //   setData(parsedData);
+  // }
+  // }, []);
 
   return (
     <div className="flex flex-col gap-2 px-[10%]">
       <div className="flex justify-between items-center">
         <div className="flex gap-4 items-center">
           <Avatar className="w-[100px] h-[100px]">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src="./logo.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-2">
@@ -160,15 +184,15 @@ const Profile = () => {
           </a>
         </div>
 
-        <div className="flex gap-4 items-center pl-28">
-          <Button variant="outline" onClick={test} className="w-full">
+        {/* <div className="flex gap-4 items-center pl-28">
+          <Button variant="outline" className="w-full">
             <Volume1Icon className="h-6 w-6 text-green-500 pr-1" /> Endorse
           </Button>
           <Button variant="outline" className="w-full">
             {" "}
             <HeartIcon className="h-6 w-6 text-red-500 pr-1" /> Sponser
           </Button>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-4 pt-4">
           <p className="font-semibold text-xl">Endorsements Received</p>
