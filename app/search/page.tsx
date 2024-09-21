@@ -22,6 +22,7 @@ import {
 } from "@/lib/contracts/PODProfile.json";
 import { createPublicClient, getContract, http } from "viem";
 import { sepolia } from "viem/chains";
+import { Endorsement } from "../components/Endorsement";
 
 // Star Rating Component
 const StarRating = ({ rating }: { rating: number }) => {
@@ -157,9 +158,7 @@ const Search = () => {
             </div>
 
             <div className="flex gap-4 items-center pl-28">
-              <Button variant="outline" className="w-full">
-                <Volume1Icon className="h-6 w-6 text-green-500 pr-1" /> Endorse
-              </Button>
+              <Endorsement />
               <Button variant="outline" className="w-full">
                 {" "}
                 <HeartIcon className="h-6 w-6 text-red-500 pr-1" /> Sponser

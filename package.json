@@ -15,6 +15,7 @@
     "@ensdomains/ensjs": "4.0.1-alpha.0",
     "@ethsign/sp-sdk": "^0.7.5",
     "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-separator": "^1.1.0",
