@@ -11,13 +11,26 @@ import {
 } from "@/app/components/ui/dialog";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/components/ui/select";
 import { Volume1Icon } from "lucide-react";
+import { createEndorsementAttestation } from "@/lib/createEndorsementAttestation";
 
-export function Endorsement() {
+export function Endorsement({
+  userAddress,
+  address,
+}: {
+  userAddress: string;
+  address: `0x${string}`;
+}) {
   const [data, setData] = useState({
     skill: "",
-    rating: "",
+    rating: 0,
     description: "",
   });
 
@@ -36,7 +49,7 @@ export function Endorsement() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { skill, rating } = data;
 
     if (!skill || !rating) {
@@ -45,6 +58,18 @@ export function Endorsement() {
     }
 
     console.log(data);
+    const res = await createEndorsementAttestation(
+      data.skill,
+      data.rating,
+      data.description,
+      userAddress,
+      address
+    );
+    if (res.status) {
+      alert("Endorsement created successfully!");
+    } else {
+      alert("Failed to create endorsement.");
+    }
   };
 
   return (
@@ -67,7 +92,9 @@ export function Endorsement() {
             <Label htmlFor="skill" className="text-right">
               Skill
             </Label>
-            <Select onValueChange={(value) => handleSelectChange("skill", value)}>
+            <Select
+              onValueChange={(value) => handleSelectChange("skill", value)}
+            >
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder="Select skill" />
               </SelectTrigger>
@@ -86,7 +113,9 @@ export function Endorsement() {
             <Label htmlFor="rating" className="text-right">
               Rating
             </Label>
-            <Select onValueChange={(value) => handleSelectChange("rating", value)}>
+            <Select
+              onValueChange={(value) => handleSelectChange("rating", value)}
+            >
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder="Select rating" />
               </SelectTrigger>

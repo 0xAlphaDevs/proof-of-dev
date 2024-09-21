@@ -5,16 +5,10 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/app/components/ui/avatar";
-import { Button } from "@/app/components/ui/button";
 import { useAccount, useReadContract } from "wagmi";
-import { getNamesForAddress } from "@ensdomains/ensjs/subgraph";
-import { http } from "viem";
-import { sepolia } from "viem/chains";
-import { createEnsPublicClient } from "@ensdomains/ensjs";
-import { namehash } from "@ensdomains/ensjs/utils";
 // import { createEndorsementAttestation } from "@/lib/createEndorsementAttestation";
 // import { getAttestationsForUser, getAttestations } from "@/lib/getAttestations";
-import { HeartIcon, Volume1Icon } from "lucide-react";
+
 import { Separator } from "../components/ui/separator";
 import {
   Card,
@@ -40,9 +34,25 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
+const endorsements = [
+  {
+    rating: 4,
+    description: "This is a sample description",
+  },
+  {
+    rating: 5,
+    description: "This is a sample description",
+  },
+  {
+    rating: 3,
+    description: "This is a sample description",
+  },
+];
+
 const Profile = () => {
   const { address } = useAccount();
-  const [data, setData] = React.useState<any>({
+  const [podScore, setPodScore] = React.useState<number>(0);
+  const [data, setData] = React.useState({
     username: "..",
     bio: "..",
     github: "..",
@@ -70,6 +80,18 @@ const Profile = () => {
     }
   }, [user]);
 
+  function getPodScore(endorsements: any) {
+    let score = 0;
+    for (let i = 0; i < endorsements.length; i++) {
+      score += endorsements[i].rating;
+    }
+    setPodScore((score / endorsements.length) * 20);
+  }
+
+  useEffect(() => {
+    getPodScore(endorsements);
+  }, [endorsements]);
+
   // async function getSubnames(address: string) {
   //   // const subnames = await fetch(
   //   //   `https://api.ens.domains/subnames/${address}`
@@ -92,7 +114,6 @@ const Profile = () => {
   //       wrappedOwner: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C",
   //     },
   //   });
-
   //   console.log(result);
   // }
 
@@ -137,7 +158,7 @@ const Profile = () => {
 
         <div className="flex flex-col gap-2 pt-4">
           <p className="text-white text-center bg-green-500 rounded-lg p-2 text-4xl font-bold">
-            100
+            {podScore}
           </p>
           <p className="font-semibold text-gray-500">POD Score</p>
         </div>

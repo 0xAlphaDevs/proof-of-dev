@@ -1,8 +1,11 @@
 import { SignProtocolClient, SpMode, EvmChains } from "@ethsign/sp-sdk";
 
 export async function createEndorsementAttestation(
-  data?: any,
-  indexingValue?: string
+  skill: string,
+  rating: number,
+  description: string,
+  endorseTo: string,
+  endorsedBy: string
 ) {
   const client = new SignProtocolClient(SpMode.OnChain, {
     chain: EvmChains.sepolia,
@@ -12,15 +15,20 @@ export async function createEndorsementAttestation(
   const createAttestationRes = await client.createAttestation({
     schemaId: "0x260",
     data: {
-      skill: "c",
-      rating: 3,
-      description: "b",
-      endorseTo: "0x1b7B2f6fdd75D8721AA1E227d58fe97577Cd5571",
-      endorsedBy: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C",
+      skill: skill,
+      rating: rating,
+      description: description,
+      endorseTo: endorseTo,
+      endorsedBy: endorsedBy,
     },
-    recipients: ["0x1b7B2f6fdd75D8721AA1E227d58fe97577Cd5571"],
-    indexingValue: "0x1b7B2f6fdd75D8721AA1E227d58fe97577Cd5571",
+    recipients: [endorseTo],
+    indexingValue: endorseTo,
   });
 
   console.log(createAttestationRes);
+  if (createAttestationRes.attestationId) {
+    return { status: true, attestationId: createAttestationRes.attestationId };
+  } else {
+    return { status: false };
+  }
 }

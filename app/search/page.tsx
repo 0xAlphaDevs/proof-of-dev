@@ -38,6 +38,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 const Search = () => {
   const [userAddress, setUserAddress] = React.useState<string>("");
+  const { address } = useAccount();
   const [dataLoaded, setDataLoaded] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>({
     username: "..",
@@ -48,7 +49,6 @@ const Search = () => {
   });
 
   async function searchUser() {
-
     if (!userAddress) {
       alert("Please enter a valid Ethereum address.");
       return;
@@ -80,7 +80,6 @@ const Search = () => {
 
   return (
     <>
-
       <div className="flex items-center gap-4 px-[10%] pb-6">
         <input
           type="text"
@@ -89,9 +88,7 @@ const Search = () => {
           onChange={(e) => setUserAddress(e.target.value)}
           className="border rounded-lg p-2 w-[80%]"
         />
-        <Button onClick={searchUser}>
-          Search User
-        </Button>
+        <Button onClick={searchUser}>Search User</Button>
       </div>
       {dataLoaded ? (
         <div className="flex flex-col gap-2 px-[10%]">
@@ -158,7 +155,10 @@ const Search = () => {
             </div>
 
             <div className="flex gap-4 items-center pl-28">
-              <Endorsement />
+              <Endorsement
+                userAddress={userAddress}
+                address={address as `0x${string}`}
+              />
               <Button variant="outline" className="w-full">
                 {" "}
                 <HeartIcon className="h-6 w-6 text-red-500 pr-1" /> Sponser

@@ -5,12 +5,12 @@ import {
   EvmChains,
 } from "@ethsign/sp-sdk";
 
-export async function getAttestationsForUser() {
+export async function getAttestationsForUser(address: string) {
   const indexService = new IndexService("testnet");
   const res = await indexService.queryAttestationList({
     schemaId: "onchain_evm_11155111_0x260",
     mode: "onchain",
-    indexingValue: "",
+    indexingValue: address,
     page: 1,
   });
   console.log(res);
@@ -30,8 +30,8 @@ export async function getAttestationsForUser() {
   return decodedAttestations;
 }
 
-export async function getAttestation(attestationId: string) {
-  const indexService = new IndexService("testnet");
-  const res = await indexService.queryAttestation(attestationId);
-  console.log(res);
-}
+// export async function getAttestation(attestationId: string) {
+//   const indexService = new IndexService("testnet");
+//   const res = await indexService.queryAttestation(attestationId);
+//   console.log(res);
+// }
