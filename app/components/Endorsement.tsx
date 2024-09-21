@@ -11,6 +11,7 @@ import {
 } from "@/app/components/ui/dialog";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { Volume1Icon } from "lucide-react";
 
 export function Endorsement() {
@@ -20,7 +21,14 @@ export function Endorsement() {
     description: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectChange = (key: string, value: string) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -40,7 +48,7 @@ export function Endorsement() {
   };
 
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full">
           <Volume1Icon className="h-6 w-6 text-green-500 pr-1" /> Endorse
@@ -54,33 +62,45 @@ export function Endorsement() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
+          {/* Skill Select */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="skill" className="text-right">
               Skill
             </Label>
-            <Input
-              id="skill"
-              value={data.skill}
-              onChange={handleChange}
-              placeholder="Enter skill"
-              required
-              className="col-span-3"
-            />
+            <Select onValueChange={(value) => handleSelectChange("skill", value)}>
+              <SelectTrigger className="col-span-3">
+                <SelectValue placeholder="Select skill" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="React">React</SelectItem>
+                <SelectItem value="Solidity">Solidity</SelectItem>
+                <SelectItem value="Foundry">Foundry</SelectItem>
+                <SelectItem value="Rust">Rust</SelectItem>
+                <SelectItem value="Cairo">Cairo</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+
+          {/* Rating Select */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="rating" className="text-right">
               Rating
             </Label>
-            <Input
-              id="rating"
-              type="number"
-              value={data.rating}
-              onChange={handleChange}
-              placeholder="Enter rating (1-5)"
-              required
-              className="col-span-3"
-            />
+            <Select onValueChange={(value) => handleSelectChange("rating", value)}>
+              <SelectTrigger className="col-span-3">
+                <SelectValue placeholder="Select rating" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1</SelectItem>
+                <SelectItem value="2">2</SelectItem>
+                <SelectItem value="3">3</SelectItem>
+                <SelectItem value="4">4</SelectItem>
+                <SelectItem value="5">5</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+
+          {/* Description Input */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right">
               Description
@@ -88,7 +108,7 @@ export function Endorsement() {
             <Input
               id="description"
               value={data.description}
-              onChange={handleChange}
+              onChange={handleInputChange}
               placeholder="Enter description"
               className="col-span-3"
             />
