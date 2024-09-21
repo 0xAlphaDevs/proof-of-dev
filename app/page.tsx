@@ -13,6 +13,8 @@ import { useAccount } from "wagmi";
 // import DynamicMethods from "@/app/components/Methods";
 import "./page.css";
 import { verify } from "@/lib/actions/verify";
+import Image from "next/image";
+import { Card, CardDescription, CardHeader } from "@/app/components/ui/card";
 
 const checkIsDarkSchemePreferred = () => {
   if (typeof window !== "undefined") {
@@ -83,42 +85,23 @@ export default function Main() {
     }
   };
   return (
-    <div className={`container ${isDarkMode ? "dark" : "light"}`}>
-      <div className="header">
-        <img
-          className="logo"
-          src={isDarkMode ? "/logo-light.png" : "/logo-dark.png"}
-          alt="dynamic"
-        />
-        <div className="header-buttons">
-          <button
-            className="docs-button"
-            onClick={() =>
-              window.open(
-                "https://docs.dynamic.xyz",
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
-          >
-            Docs
-          </button>
-          <button
-            className="get-started"
-            onClick={() =>
-              window.open(
-                "https://app.dynamic.xyz",
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
-          >
-            Get started
-          </button>
+    <div className="">
+      <div className="flex items-center justify-between py-12 px-24">
+        <div
+          className="flex items-center gap-4 font-bold"
+        >
+          <Image
+            src="/logo.png"
+            width={40}
+            height={40}
+            alt="Picture of the author"
+          />
+          <span className="text-3xl">Proof of Dev</span>
         </div>
+        <div className="font-semibold text-white bg-violet-500 rounded-full px-2 py-1">ETHGlobal 2024 Hackathon</div>
       </div>
 
-      <div className="modal">
+      <div className="mt-20 flex flex-col items-center justify-center gap-8 px-8 py-4">
         <DynamicWidget />
         {isConnected ? (
           !isVerified ? (
@@ -134,17 +117,49 @@ export default function Main() {
               )}
             </IDKitWidget>
           ) : (
-            <p>Wallet already verified. Redirecting to dashboard...</p>
+            <p className="text-sm font-semibold text-gray-500">Wallet already verified. Redirecting to dashboard...</p>
           )
         ) : (
-          <p>Please connect your wallet to verify.</p>
+          <p className="text-sm font-semibold text-gray-500">Please connect your wallet to get started.</p>
         )}
       </div>
 
-      {/* <div className="footer">
-        <div className="footer-text">Made with ❤️ by dynamic</div>
-        <img className="footer-image" src={isDarkMode ? "/image-dark.png" : "/image-light.png"} alt="dynamic" />
-      </div> */}
+      <div className="grid grid-cols-3 gap-8 px-20 mt-20">
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardDescription className="text-center pt-1 text-lg text-black">
+              This is a sample feature
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardDescription className="text-center pt-1 text-lg text-black">
+              This is a sample feature
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardDescription className="text-center pt-1 text-lg text-black">
+              This is a sample feature
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+
+      <div className="fixed mx-[39%] bottom-4">
+        {/* <hr className="border-t-1 border-slate-600 mb-4" /> */}
+        <div className="flex justify-center items-center">
+          <p className="text-muted-foreground">
+            &copy;{" "}
+            <a href="https://www.alphadevs.dev/" target="_blank">
+              Team AlphaDevs
+            </a>{" "}
+            | All rights reserved
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
