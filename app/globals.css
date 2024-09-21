@@ -39,12 +39,6 @@ a {
   text-decoration: none;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
