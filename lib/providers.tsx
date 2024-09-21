@@ -14,7 +14,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <DynamicContextProvider
       theme="light"
       settings={{
-        environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID,
+        environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID as string,
         walletConnectors: [EthereumWalletConnectors],
       }}
     >

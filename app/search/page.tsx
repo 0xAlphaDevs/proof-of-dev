@@ -63,10 +63,15 @@ const Search = () => {
     if (user) {
       console.log(user);
       setData({
+        // @ts-ignore
         username: user?.username,
+        // @ts-ignore
         bio: user?.bio,
+        // @ts-ignore
         github: user?.github,
+        // @ts-ignore
         twitter: user?.twitter,
+        // @ts-ignore
         farcaster: user?.farcaster,
       });
     }
@@ -129,10 +134,15 @@ const Search = () => {
     const result = await contract.read.getUserProfile([userAddress]);
 
     setData({
+      // @ts-ignore
       username: result.username,
+      // @ts-ignore
       bio: result.bio,
+      // @ts-ignore
       github: result.github,
+      // @ts-ignore
       twitter: result.twitter,
+      // @ts-ignore
       farcaster: result.farcaster,
     });
 

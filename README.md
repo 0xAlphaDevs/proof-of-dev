@@ -15,8 +15,8 @@ POD is a sybil resistant Web3 Builder reputation protocol. Endorse and get recog
 
 ## Links
 
-- [Deployed URL]()
-- [Presentation]()
+- [Deployed URL](https://pod.alphadevs.dev)
+- [Presentation](https://www.canva.com/design/DAGRZJBFqp8/10J4x_WGZjzwL4g2QJcaFg/view)
 
 ## Deployed Contract
 
