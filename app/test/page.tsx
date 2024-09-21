@@ -12,11 +12,11 @@ const Test = () => {
   // console.log(data);
 
   const { data } = useEnsText({
-    name: normalize("pod.eth"),
-    key: "avatar",
+    name: normalize("test.pod.eth"),
+    key: "sldfj",
   });
 
-  console.log(data);
+  console.log("ens name --", data);
   return <div className="bg-red-500 text-white">Test </div>;
 };
 

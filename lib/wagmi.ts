@@ -4,7 +4,7 @@ import { sepolia } from "wagmi/chains";
 export const config = createConfig({
   chains: [sepolia],
   multiInjectedProviderDiscovery: false,
-  ssr: true,
+  ssr: false,
   transports: {
     [sepolia.id]: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
   },
