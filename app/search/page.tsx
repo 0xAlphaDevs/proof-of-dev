@@ -36,9 +36,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 };
 
 const Search = () => {
-  const [userAddress, setUserAddress] = React.useState<string>(
-    "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C"
-  );
+  const [userAddress, setUserAddress] = React.useState<string>("");
   const [dataLoaded, setDataLoaded] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>({
     username: "..",
@@ -49,6 +47,11 @@ const Search = () => {
   });
 
   async function searchUser() {
+
+    if (!userAddress) {
+      alert("Please enter a valid Ethereum address.");
+      return;
+    }
     // create client
     const publicClient = createPublicClient({
       chain: sepolia,
@@ -76,7 +79,19 @@ const Search = () => {
 
   return (
     <>
-      <button onClick={searchUser}>Test</button>
+
+      <div className="flex items-center gap-4 px-[10%] pb-6">
+        <input
+          type="text"
+          placeholder="Enter Ethereum address"
+          value={userAddress}
+          onChange={(e) => setUserAddress(e.target.value)}
+          className="border rounded-lg p-2 w-[80%]"
+        />
+        <Button onClick={searchUser}>
+          Search User
+        </Button>
+      </div>
       {dataLoaded ? (
         <div className="flex flex-col gap-2 px-[10%]">
           <div className="flex justify-between items-center">
