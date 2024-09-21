@@ -3,7 +3,7 @@
 
 import { DynamicWidget } from "@/lib/dynamic";
 import { useState, useEffect } from 'react';
-import DynamicMethods from "@/app/components/Methods";
+// import DynamicMethods from "@/app/components/Methods";
 import './page.css';
 
 const checkIsDarkSchemePreferred = () => {
@@ -19,7 +19,7 @@ export default function Main() {
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => setIsDarkMode(checkIsDarkSchemePreferred());
-    
+
     darkModeMediaQuery.addEventListener('change', handleChange);
     return () => darkModeMediaQuery.removeEventListener('change', handleChange);
   }, []);
@@ -35,12 +35,12 @@ export default function Main() {
       </div>
       <div className="modal">
         <DynamicWidget />
-        <DynamicMethods isDarkMode={isDarkMode} />
+        {/* <DynamicMethods isDarkMode={isDarkMode} /> */}
       </div>
-      <div className="footer">
+      {/* <div className="footer">
         <div className="footer-text">Made with ❤️ by dynamic</div>
         <img className="footer-image" src={isDarkMode ? "/image-dark.png" : "/image-light.png"} alt="dynamic" />
-      </div>
-    </div> 
+      </div> */}
+    </div>
   );
 }
