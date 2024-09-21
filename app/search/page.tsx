@@ -175,7 +175,7 @@ const Search = () => {
           </div>
 
           {/* user socials */}
-          <div className="flex flex-col gap-4 pr-40">
+          <div className="flex flex-col gap-4">
             <div className="flex gap-6 items-center pl-28 mb-2">
               <a
                 href={`https://github.com/${data.github}`}
