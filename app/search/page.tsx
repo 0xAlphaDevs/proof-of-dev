@@ -23,6 +23,7 @@ import {
 import { createPublicClient, getContract, http } from "viem";
 import { sepolia } from "viem/chains";
 import { Endorsement } from "../components/Endorsement";
+import { getAttestationsForUser } from "@/lib/getAttestations";
 
 // Star Rating Component
 const StarRating = ({ rating }: { rating: number }) => {
@@ -47,6 +48,66 @@ const Search = () => {
     twitter: "..",
     farcaster: "..",
   });
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [podScore, setPodScore] = React.useState<number>(0);
+  const [endorsements, setEndorsements] = React.useState<any[]>([]);
+
+  const { data: user } = useReadContract({
+    address: podAddress as `0x${string}`,
+    abi: podAbi,
+    functionName: "getUserProfile",
+    args: [address],
+  });
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      setData({
+        username: user?.username,
+        bio: user?.bio,
+        github: user?.github,
+        twitter: user?.twitter,
+        farcaster: user?.farcaster,
+      });
+    }
+  }, [user]);
+
+  function getPodScore(endorsements: any[]) {
+    let score = 0;
+    for (let i = 0; i < endorsements.length; i++) {
+      score += Number(endorsements[i].rating);
+    }
+    setPodScore((score / endorsements.length) * 20);
+  }
+
+  useEffect(() => {
+    getPodScore(endorsements);
+  }, [endorsements]);
+
+  async function getAttestations(address: string) {
+    const attestations = await getAttestationsForUser(address as string);
+    console.log(attestations);
+    let endorsementsArray: any[] = [];
+    attestations.forEach((attestation: any) => {
+      console.log(attestation);
+      endorsementsArray.push({
+        skill: attestation.data.skill,
+        rating: attestation.data.rating,
+        description: attestation.data.description,
+      });
+    });
+
+    getPodScore(endorsementsArray);
+
+    setEndorsements(endorsementsArray);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (address) {
+      getAttestations(address as string);
+    }
+  }, [address]);
 
   async function searchUser() {
     if (!userAddress) {
@@ -107,7 +168,7 @@ const Search = () => {
 
             <div className="flex flex-col gap-2 pt-4">
               <p className="text-white text-center bg-green-500 rounded-lg p-2 text-4xl font-bold">
-                100
+                {loading ? 0 : podScore.toFixed(0)}
               </p>
               <p className="font-semibold text-gray-500">POD Score</p>
             </div>
@@ -168,22 +229,28 @@ const Search = () => {
             <div className="flex flex-col gap-4 pt-4">
               <p className="font-semibold text-xl">Endorsements Received</p>
               <Separator className="my-1" />
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex justify-between items-center">
-                    <p>
-                      Skill :{" "}
-                      <span className="bg-gray-500 text-white text-sm font-semibold rounded-full px-2 py-0.5">
-                        Front-end
-                      </span>
-                    </p>
-                    <StarRating rating={4} />
-                  </CardTitle>
-                  <CardDescription className="">
-                    This is a sample description
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+              {loading ? (
+                <>Loading...</>
+              ) : (
+                endorsements.map((endorsement, index) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <CardTitle className="flex justify-between items-center">
+                        <p>
+                          Skill :{" "}
+                          <span className="bg-gray-500 text-white text-sm font-semibold rounded-full px-2 py-0.5">
+                            {endorsement.skill}
+                          </span>
+                        </p>
+                        <StarRating rating={endorsement.rating} />
+                      </CardTitle>
+                      <CardDescription className="">
+                        {endorsement.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                ))
+              )}
             </div>
           </div>
         </div>

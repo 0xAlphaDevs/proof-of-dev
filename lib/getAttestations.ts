@@ -29,9 +29,3 @@ export async function getAttestationsForUser(address: string) {
 
   return decodedAttestations;
 }
-
-// export async function getAttestation(attestationId: string) {
-//   const indexService = new IndexService("testnet");
-//   const res = await indexService.queryAttestation(attestationId);
-//   console.log(res);
-// }
