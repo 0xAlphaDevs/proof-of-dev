@@ -102,6 +102,7 @@ export default function Main() {
       </div>
       <div className="modal">
         <DynamicWidget />
+        {/* TO DO : Only show if the user has not provided proof of humaness */}
         <IDKitWidget
           action={process.env.NEXT_PUBLIC_WLD_ACTION!}
           app_id={process.env.NEXT_PUBLIC_WLD_APP_ID as `app_${string}`}
