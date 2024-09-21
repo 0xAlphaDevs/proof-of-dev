@@ -152,12 +152,12 @@ export function Endorsement({
           </div>
         ) : isLoading ? (
           <div className="text-center py-8">
-            <p className="text-sm textx-gray-500 font-semibold">Creating endorsement...</p>
+            <p className="text-xl textx-gray-500 font-semibold">Creating endorsement...</p>
           </div>
         ) : (
           isCompleted && (
             <div className="flex flex-col gap-4 items-center justify-center text-center py-8">
-              <CircleCheckIcon className="h-6 w-6 text-green-500" />
+              <CircleCheckIcon className="h-10 w-10 text-green-500" />
               <p className="text-sm text-green-500 font-semibold">Endorsement Completed!</p>
             </div>
           )
