@@ -14,6 +14,7 @@ import "./page.css";
 import { verify } from "@/lib/actions/verify";
 import Image from "next/image";
 import { Card, CardDescription, CardHeader } from "@/app/components/ui/card";
+import { Button } from "./components/ui/button";
 
 // const checkIsDarkSchemePreferred = () => {
 //   if (typeof window !== "undefined") {
@@ -86,9 +87,7 @@ export default function Main() {
   return (
     <div className="">
       <div className="flex items-center justify-between py-12 px-24">
-        <div
-          className="flex items-center gap-4 font-bold"
-        >
+        <div className="flex items-center gap-4 font-bold">
           <Image
             src="/logo.png"
             width={40}
@@ -97,7 +96,9 @@ export default function Main() {
           />
           <span className="text-3xl">Proof of Dev</span>
         </div>
-        <div className="font-semibold text-white bg-violet-500 rounded-full px-2 py-1">ETHGlobal 2024 Hackathon</div>
+        <div className="font-semibold text-white bg-violet-500 rounded-full px-2 py-1">
+          ETHGlobal 2024 Hackathon
+        </div>
       </div>
 
       <div className="mt-20 flex flex-col items-center justify-center gap-8 px-8 py-4">
@@ -112,14 +113,18 @@ export default function Main() {
               verification_level={VerificationLevel.Orb}
             >
               {({ open }) => (
-                <button onClick={open}>Verify with World ID</button>
+                <Button onClick={open}>Verify your Humaness proof</Button>
               )}
             </IDKitWidget>
           ) : (
-            <p className="text-sm font-semibold text-gray-500">Wallet already verified. Redirecting to dashboard...</p>
+            <p className="text-sm font-semibold text-gray-500">
+              Wallet already verified. Redirecting to dashboard...
+            </p>
           )
         ) : (
-          <p className="text-sm font-semibold text-gray-500">Please connect your wallet to get started.</p>
+          <p className="text-sm font-semibold text-gray-500">
+            Please connect your wallet to get started.
+          </p>
         )}
       </div>
 

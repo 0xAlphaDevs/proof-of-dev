@@ -30,7 +30,7 @@ interface FormData {
 export function UserDetails() {
   const router = useRouter();
 
-  const { writeContract } = useWriteContract();
+  const { writeContract, isSuccess } = useWriteContract();
   const [formData, setFormData] = React.useState<FormData>({
     username: "",
     bio: "",
@@ -63,9 +63,13 @@ export function UserDetails() {
         formData.farcaster,
       ],
     });
-
-    // router.push("/profile");
   };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      router.push("/profile");
+    }
+  }, [isSuccess]);
 
   // async function checkRecordExists(label: string) {
   //   // create client
