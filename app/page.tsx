@@ -21,14 +21,6 @@ const checkIsDarkSchemePreferred = () => {
   return false;
 };
 
-// // Check if the wallet is already verified using localStorage
-// const isWalletVerified = (walletAddress: string) => {
-//   if (typeof window !== "undefined") {
-//     return localStorage.getItem(walletAddress) === "true";
-//   }
-//   return false;
-// };
-
 export default function Main() {
   const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
   //  const [isLoading, setIsLoading] = useState(false);
