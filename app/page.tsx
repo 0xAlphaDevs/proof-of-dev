@@ -2,10 +2,10 @@
 
 //@ts-expect-error - This is a client-side only file
 import { DynamicWidget } from "@/lib/dynamic";
-import { VerificationLevel, IDKitWidget } from "@worldcoin/idkit";
+import { VerificationLevel, IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 import { useState, useEffect } from "react";
-import type { ISuccessResult } from "@worldcoin/idkit";
 import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 // import DynamicMethods from "@/app/components/Methods";
 import "./page.css";
 import { verify } from "@/lib/actions/verify";
@@ -17,10 +17,20 @@ const checkIsDarkSchemePreferred = () => {
   return false;
 };
 
+// // Check if the wallet is already verified using localStorage
+// const isWalletVerified = (walletAddress: string) => {
+//   if (typeof window !== "undefined") {
+//     return localStorage.getItem(walletAddress) === "true";
+//   }
+//   return false;
+// };
+
 export default function Main() {
   const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
   //  const [isLoading, setIsLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const router = useRouter();
+  const { address, isConnected } = useAccount();
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia(
@@ -32,15 +42,28 @@ export default function Main() {
     return () => darkModeMediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+
+  useEffect(() => {
+    if (address && isConnected) {
+      const storedValue = localStorage.getItem(address);
+      if (storedValue === "true") {
+        setIsVerified(true);
+        router.push("/dashboard");
+      }
+    }
+  }, [address, isConnected, router]);
+
+
   const onSuccess = async (result: ISuccessResult) => {
     try {
       // setIsLoading(true);
       const verificationResult = await verify(result);
       if (verificationResult.success) {
+        localStorage.setItem(address as string, "true");
+        setIsVerified(true);
+        router.push("/dashboard");
         //  setCreatorSession({ proof: result, verified: true });
-        setTimeout(() => {
-          router.push("/creator/dashboard");
-        }, 2000);
+
       }
     } catch (error) {
       console.error("Verification failed:", error);
@@ -57,6 +80,7 @@ export default function Main() {
       if (data.success) {
         console.log("Successful verification");
         onSuccess(result);
+
       } else {
         throw new Error(`Verification failed: ${data.detail}`);
       }
@@ -100,21 +124,28 @@ export default function Main() {
           </button>
         </div>
       </div>
+
       <div className="modal">
         <DynamicWidget />
-        {/* TO DO : Only show if the user has not provided proof of humaness */}
-        <IDKitWidget
-          action={process.env.NEXT_PUBLIC_WLD_ACTION!}
-          app_id={process.env.NEXT_PUBLIC_WLD_APP_ID as `app_${string}`}
-          onSuccess={onSuccess}
-          handleVerify={handleProof}
-          verification_level={VerificationLevel.Orb}
-        >
-          {({ open }) => <button onClick={open}>Verify with World ID</button>}
-        </IDKitWidget>
-
-        {/* <DynamicMethods isDarkMode={isDarkMode} /> */}
+        {isConnected ? (
+          !isVerified ? (
+            <IDKitWidget
+              action={process.env.NEXT_PUBLIC_WLD_ACTION!}
+              app_id={process.env.NEXT_PUBLIC_WLD_APP_ID as `app_${string}`}
+              onSuccess={onSuccess}
+              handleVerify={handleProof}
+              verification_level={VerificationLevel.Orb}
+            >
+              {({ open }) => <button onClick={open}>Verify with World ID</button>}
+            </IDKitWidget>
+          ) : (
+            <p>Wallet already verified. Redirecting to dashboard...</p>
+          )
+        ) : (
+          <p>Please connect your wallet to verify.</p>
+        )}
       </div>
+
       {/* <div className="footer">
         <div className="footer-text">Made with ❤️ by dynamic</div>
         <img className="footer-image" src={isDarkMode ? "/image-dark.png" : "/image-light.png"} alt="dynamic" />
