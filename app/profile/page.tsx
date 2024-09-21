@@ -57,11 +57,17 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       console.log(user);
+
       setData({
+        // @ts-ignore
         username: user?.username,
+        // @ts-ignore
         bio: user?.bio,
+        // @ts-ignore
         github: user?.github,
+        // @ts-ignore
         twitter: user?.twitter,
+        // @ts-ignore
         farcaster: user?.farcaster,
       });
     }
