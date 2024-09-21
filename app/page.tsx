@@ -1,6 +1,5 @@
 "use client";
 
-//@ts-expect-error - This is a client-side only file
 import { DynamicWidget } from "@/lib/dynamic";
 import {
   VerificationLevel,
@@ -16,30 +15,30 @@ import { verify } from "@/lib/actions/verify";
 import Image from "next/image";
 import { Card, CardDescription, CardHeader } from "@/app/components/ui/card";
 
-const checkIsDarkSchemePreferred = () => {
-  if (typeof window !== "undefined") {
-    return window.matchMedia?.("(prefers-color-scheme:dark)")?.matches ?? false;
-  }
-  return false;
-};
+// const checkIsDarkSchemePreferred = () => {
+//   if (typeof window !== "undefined") {
+//     return window.matchMedia?.("(prefers-color-scheme:dark)")?.matches ?? false;
+//   }
+//   return false;
+// };
 
 export default function Main() {
-  const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
+  // const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
   // const [isDarkMode, setIsDarkMode] = useState(false);
   //  const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const router = useRouter();
   const { address, isConnected } = useAccount();
 
-  useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: light)"
-    );
-    const handleChange = () => setIsDarkMode(checkIsDarkSchemePreferred());
+  // useEffect(() => {
+  //   const darkModeMediaQuery = window.matchMedia(
+  //     "(prefers-color-scheme: light)"
+  //   );
+  //   const handleChange = () => setIsDarkMode(checkIsDarkSchemePreferred());
 
-    darkModeMediaQuery.addEventListener("change", handleChange);
-    return () => darkModeMediaQuery.removeEventListener("change", handleChange);
-  }, []);
+  //   darkModeMediaQuery.addEventListener("change", handleChange);
+  //   return () => darkModeMediaQuery.removeEventListener("change", handleChange);
+  // }, []);
 
   useEffect(() => {
     if (address && isConnected) {
