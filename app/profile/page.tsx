@@ -169,7 +169,7 @@ const Profile = () => {
             />
           </a>
           <a
-            href={`https://farcaster.com/${data.farcaster}`}
+            href={`https://warpcast.com/${data.farcaster}`}
             target="_blank"
             rel="noopener noreferrer"
             className=" rounded-lg px-2 py-1"
