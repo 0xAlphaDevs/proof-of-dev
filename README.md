@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Proof of Dev (POD)
 
-## Getting Started
+POD is a sybil resistant Web3 Builder reputation protocol. Endorse and get recognized for your on-chain work
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. [All Links](#links)
+2. [Deployed Contracts](#deployed-contract)
+3. [Tech Stack](#tech-stack)
+4. [High Level Architecture](#high-level-architecture)
+5. [App Demo](#app-demo-screenshots)
+6. [Future Vision](#future-vision)
+7. [Instructions to setup and run locally ](#instructions-to-setup)
+8. [Team](#team)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Links
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Deployed URL]()
+- [Presentation]()
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployed Contract
 
-## Learn More
+- [ PODProfile - 0x011fD3E408d5356b5e3Ae6A6C30BaE9FeF7A1076 ](https://sepolia.etherscan.io/address/0x011fD3E408d5356b5e3Ae6A6C30BaE9FeF7A1076#code)
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Sign Protocol
+- World ID
+- Dynamic
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## High Level Architecture
 
-## Deploy on Vercel
+![image](/public/appDemo/architecture.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## App Demo Screenshots
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**_Landing Page_**
+![image](/public/appDemo/landing-page.png)
+
+**_Create POD Identity_**
+![image](/public/appDemo/create-pod-identity.png)
+
+**_Profile Page_**
+![image](/public/appDemo/profile-page.png)
+
+**_Search POD Identity_**
+![image](/public/appDemo/search-pod-identity.png)
+
+**_Endorsement Page_**
+![image](/public/appDemo/endorsement-page.png)
+
+## Future Vision
+
+- Mint ENS subdomains for every POD user and navigate through the app using the subdomains
+- Integrate multiple payments option to sponser POD profiles
+- Adding a leaderboard to show top 10 POD profiles
+
+## Instructions to Setup
+
+Follow these instructions to set up and run the project:
+
+**Using Github**
+
+- Clone the Git repository: `https://github.com/0xAlphaDevs/proof-of-dev.git`
+- Install project dependencies: `pnpm install`
+- Start the development server: `pnpm run dev`
+- Copy the `.env.example` file to `.env.local` and fill in the required values
+- Access the web app in your browser at [http://localhost:3000](http://localhost:3000)
+
+## Team
+
+Team [AlphaDevs](https://www.alphadevs.dev) 👇
+
+### Github
+
+[Harsh Tyagi](https://github.com/mr-harshtyagi)
+[Yashasvi Chaudhary](https://github.com/0xyshv)
+
+### Twitter / X
+
+[Harsh Tyagi](https://twitter.com/0xmht)
+[Yashasvi Chaudhary](https://twitter.com/0xyshv)
+
+## Thanks
+
+- Feel free to reach out to the [AlphaDevs team](https://www.alphadevs.dev) with any questions or issues.
+
+- We appreciate your interest in our project and welcome contributions and feature suggestions.
