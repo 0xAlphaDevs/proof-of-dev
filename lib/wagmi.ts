@@ -1,13 +1,12 @@
-
 import { http, createConfig } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 
 export const config = createConfig({
-  chains: [mainnet],
+  chains: [sepolia],
   multiInjectedProviderDiscovery: false,
   ssr: true,
   transports: {
-    [mainnet.id]: http(),
+    [sepolia.id]: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
   },
 });
 

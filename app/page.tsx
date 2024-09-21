@@ -2,7 +2,11 @@
 
 //@ts-expect-error - This is a client-side only file
 import { DynamicWidget } from "@/lib/dynamic";
-import { VerificationLevel, IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
+import {
+  VerificationLevel,
+  IDKitWidget,
+  ISuccessResult,
+} from "@worldcoin/idkit";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
@@ -42,7 +46,6 @@ export default function Main() {
     return () => darkModeMediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-
   useEffect(() => {
     if (address && isConnected) {
       const storedValue = localStorage.getItem(address);
@@ -53,7 +56,6 @@ export default function Main() {
     }
   }, [address, isConnected, router]);
 
-
   const onSuccess = async (result: ISuccessResult) => {
     try {
       // setIsLoading(true);
@@ -63,7 +65,6 @@ export default function Main() {
         setIsVerified(true);
         router.push("/dashboard");
         //  setCreatorSession({ proof: result, verified: true });
-
       }
     } catch (error) {
       console.error("Verification failed:", error);
@@ -80,7 +81,6 @@ export default function Main() {
       if (data.success) {
         console.log("Successful verification");
         onSuccess(result);
-
       } else {
         throw new Error(`Verification failed: ${data.detail}`);
       }
@@ -136,7 +136,9 @@ export default function Main() {
               handleVerify={handleProof}
               verification_level={VerificationLevel.Orb}
             >
-              {({ open }) => <button onClick={open}>Verify with World ID</button>}
+              {({ open }) => (
+                <button onClick={open}>Verify with World ID</button>
+              )}
             </IDKitWidget>
           ) : (
             <p>Wallet already verified. Redirecting to dashboard...</p>

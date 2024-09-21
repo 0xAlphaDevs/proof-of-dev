@@ -29,7 +29,9 @@ export function UserDetails() {
     farcaster: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -40,12 +42,16 @@ export function UserDetails() {
   };
 
   return (
-    <>
-      <p className="flex justify-center pb-4">Oh No! You dont have a POD Identity. Mint one now!</p>
-      <div className='px-[30%]'>
+    <div className="z-40">
+      <p className="flex justify-center pb-4">
+        Oh No! You dont have a POD Identity. Mint one now!
+      </p>
+      <div className="px-[30%]">
         <Card className="w-[]">
           <CardHeader>
-            <CardTitle className="text-center text-xl">Mint your POD Identity</CardTitle>
+            <CardTitle className="text-center text-xl">
+              Mint your POD Identity
+            </CardTitle>
             {/* <CardDescription>Enter the details below to mint your POD identities.</CardDescription> */}
           </CardHeader>
           <CardContent>
@@ -110,6 +116,6 @@ export function UserDetails() {
           </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   );
 }
