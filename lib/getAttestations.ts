@@ -3,7 +3,6 @@ import {
   SignProtocolClient,
   SpMode,
   EvmChains,
-  decodeOnChainData,
 } from "@ethsign/sp-sdk";
 
 export async function getAttestationsForUser() {
@@ -24,7 +23,7 @@ export async function getAttestationsForUser() {
   const attestationPromises = res?.rows.map(async (attestation) => {
     return client.getAttestation(attestation.attestationId);
   });
-
+  // @ts-expect-error --- This is a promise array
   decodedAttestations = await Promise.all(attestationPromises);
   console.log(decodedAttestations);
 

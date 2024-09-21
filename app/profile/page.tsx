@@ -11,7 +11,7 @@ import { getNamesForAddress } from "@ensdomains/ensjs/subgraph";
 import { http } from "viem";
 import { sepolia } from "viem/chains";
 import { createEnsPublicClient } from "@ensdomains/ensjs";
-// import { namehash } from "@ensdomains/ensjs/utils";
+import { namehash } from "@ensdomains/ensjs/utils";
 import { createEndorsementAttestation } from "@/lib/createEndorsementAttestation";
 import { getAttestationsForUser, getAttestations } from "@/lib/getAttestations";
 
@@ -50,10 +50,12 @@ const Profile = () => {
 
   function test() {
     // getSubnames(address);
-    // const nameHash = namehash("test1.pod.eth");
+    const nameHash = namehash("test1.pod.eth");
+    console.log(nameHash);
+
     // console.log(nameHash);
     // createEndorsementAttestation();
-    getAttestationsForUser();
+    // getAttestationsForUser();
     // getAttestation("onchain_evm_11155111_0x335");
   }
 

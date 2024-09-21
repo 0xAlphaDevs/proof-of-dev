@@ -11,6 +11,9 @@ import {
 } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import { createPublicClient, getContract, http, namehash } from "viem";
+import { sepolia } from "viem/chains";
+import { address, abi } from "@/lib/contracts/ENSRegistryWithFallback.json";
 
 interface FormData {
   username: string;
@@ -40,6 +43,28 @@ export function UserDetails() {
     e.preventDefault();
     console.log(formData);
   };
+
+  async function checkRecordExists(label: string) {
+    // create client
+    const publicClient = createPublicClient({
+      chain: sepolia,
+      transport: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
+    });
+    // 1. Create contract instance
+    const contract = getContract({
+      address: address as `0x${string}`,
+      abi: abi,
+      client: publicClient,
+    });
+
+    // 2. Call contract methods
+    const nameHash: string = namehash(label);
+    console.log(nameHash);
+
+    const result = await contract.read.recordExists([nameHash]);
+
+    console.log(result);
+  }
 
   return (
     <div className="z-40">
@@ -115,6 +140,10 @@ export function UserDetails() {
             </form>
           </CardContent>
         </Card>
+
+        {/* <button onClick={() => checkRecordExists("test1.pod.eth")}>
+          Check Record Exists
+        </button> */}
       </div>
     </div>
   );
