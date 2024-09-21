@@ -44,8 +44,9 @@ export function UserDetails() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    localStorage.setItem("pod-identity", JSON.stringify(formData));
-    router.push("/profile");
+    // localStorage.setItem("pod-identity", JSON.stringify(formData));
+
+    // router.push("/profile");
   };
 
   // async function checkRecordExists(label: string) {

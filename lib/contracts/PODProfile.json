@@ -1,0 +1,123 @@
+{
+  "address": "0x011fD3E408d5356b5e3Ae6A6C30BaE9FeF7A1076",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserProfile",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "username",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "bio",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "twitter",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "github",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "farcaster",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct PODProfile.User",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_username",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_bio",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_twitter",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_github",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_farcaster",
+          "type": "string"
+        }
+      ],
+      "name": "setUserProfile",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "users",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "username",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "bio",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "twitter",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "github",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "farcaster",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
