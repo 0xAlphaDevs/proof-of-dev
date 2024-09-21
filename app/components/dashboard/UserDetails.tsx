@@ -41,7 +41,7 @@ export function UserDetails() {
 
   return (
     <>
-      <p className="flex justify-start pb-4">Oh No! You dont have a POD Identity. Mint one now!</p>
+      <p className="flex justify-center pb-4">Oh No! You dont have a POD Identity. Mint one now!</p>
       <div className='px-[30%]'>
         <Card className="w-[]">
           <CardHeader>

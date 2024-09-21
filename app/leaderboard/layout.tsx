@@ -21,7 +21,7 @@ const links = [
   },
 ];
 
-export default function Dashboard({
+export default function Leaderboard({
   children,
 }: {
   children: React.ReactNode

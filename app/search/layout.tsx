@@ -21,7 +21,7 @@ const links = [
   },
 ];
 
-export default function Dashboard({
+export default function Search({
   children,
 }: {
   children: React.ReactNode
