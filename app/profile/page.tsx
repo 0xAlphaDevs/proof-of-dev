@@ -12,11 +12,16 @@ import { http } from "viem";
 import { sepolia } from "viem/chains";
 import { createEnsPublicClient } from "@ensdomains/ensjs";
 import { namehash } from "@ensdomains/ensjs/utils";
-import { createEndorsementAttestation } from "@/lib/createEndorsementAttestation";
-import { getAttestationsForUser, getAttestations } from "@/lib/getAttestations";
+// import { createEndorsementAttestation } from "@/lib/createEndorsementAttestation";
+// import { getAttestationsForUser, getAttestations } from "@/lib/getAttestations";
 import { HeartIcon, Volume1Icon } from "lucide-react";
 import { Separator } from "../components/ui/separator";
-import { Card, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import Image from "next/image";
 
 // Star Rating Component
@@ -25,17 +30,21 @@ const StarRating = ({ rating }: { rating: number }) => {
   return (
     <p>
       {Array.from({ length: totalStars }, (_, index) => (
-        <span key={index}>
-          {index < rating ? "★" : "☆"}
-        </span>
+        <span key={index}>{index < rating ? "★" : "☆"}</span>
       ))}
     </p>
   );
 };
 
-
 const Profile = () => {
   const { address } = useAccount();
+  const [data, setData] = React.useState<any>({
+    username: "..",
+    bio: "..",
+    github: "..",
+    twitter: "..",
+    farcaster: "..",
+  });
 
   async function getSubnames(address: string) {
     // const subnames = await fetch(
@@ -78,6 +87,15 @@ const Profile = () => {
     // getAttestation("onchain_evm_11155111_0x335");
   }
 
+  useEffect(() => {
+    const data = localStorage.getItem("pod-identity");
+    if (data) {
+      const parsedData = JSON.parse(data);
+      console.log(parsedData);
+      setData(parsedData);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col gap-2 px-[10%]">
       <div className="flex justify-between items-center">
@@ -88,25 +106,24 @@ const Profile = () => {
           </Avatar>
           <div className="flex flex-col gap-2">
             {/* username */}
-            <p className="font-bold text-xl">Shadcn</p>
-            <p className="font-semibold text-gray-500">
-              Pro Front-end Developer | Building Shadcn | @Vercel{" "}
-            </p>
+            <p className="font-bold text-xl">{data.username}</p>
+            <p className="font-semibold text-gray-500">{data.bio}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-2 pt-4">
-          <p className="text-white text-center bg-green-500 rounded-lg p-2 text-4xl font-bold">100</p>
+          <p className="text-white text-center bg-green-500 rounded-lg p-2 text-4xl font-bold">
+            100
+          </p>
           <p className="font-semibold text-gray-500">POD Score</p>
         </div>
       </div>
 
       {/* user socials */}
-      <div className="flex flex-col gap-4 pr-40"
-      >
+      <div className="flex flex-col gap-4 pr-40">
         <div className="flex gap-6 items-center pl-28 mb-2">
           <a
-            href="https://github.com/0xyshv"
+            href={`https://github.com/${data.github}`}
             target="_blank"
             rel="noopener noreferrer"
             className=" rounded-lg px-2 py-1"
@@ -114,20 +131,32 @@ const Profile = () => {
             <Image src="/github.png" width={30} height={30} alt="github" />
           </a>
           <a
-            href="https://x.com/0xyshv"
+            href={`https://x.com/${data.twitter}`}
             target="_blank"
             rel="noopener noreferrer"
             className=" rounded-lg px-2 py-1"
           >
-            <Image src="/twitter.png" width={30} height={30} className="rounded-lg" alt="twitter" />
+            <Image
+              src="/twitter.png"
+              width={30}
+              height={30}
+              className="rounded-lg"
+              alt="twitter"
+            />
           </a>
           <a
-            href="https://farcaster.xyz/0xyshv"
+            href={`https://farcaster.com/${data.farcaster}`}
             target="_blank"
             rel="noopener noreferrer"
             className=" rounded-lg px-2 py-1"
           >
-            <Image src="/farcaster.jpg" width={30} height={30} className="rounded-lg" alt="farcaster" />
+            <Image
+              src="/farcaster.jpg"
+              width={30}
+              height={30}
+              className="rounded-lg"
+              alt="farcaster"
+            />
           </a>
         </div>
 
@@ -135,7 +164,10 @@ const Profile = () => {
           <Button variant="outline" onClick={test} className="w-full">
             <Volume1Icon className="h-6 w-6 text-green-500 pr-1" /> Endorse
           </Button>
-          <Button variant="outline" className="w-full"> <HeartIcon className="h-6 w-6 text-red-500 pr-1" /> Sponser</Button>
+          <Button variant="outline" className="w-full">
+            {" "}
+            <HeartIcon className="h-6 w-6 text-red-500 pr-1" /> Sponser
+          </Button>
         </div>
 
         <div className="flex flex-col gap-4 pt-4">
@@ -145,7 +177,10 @@ const Profile = () => {
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <p>
-                  Skill : <span className="bg-gray-500 text-white text-sm font-semibold rounded-full px-2 py-0.5">Front-end</span>
+                  Skill :{" "}
+                  <span className="bg-gray-500 text-white text-sm font-semibold rounded-full px-2 py-0.5">
+                    Front-end
+                  </span>
                 </p>
                 <StarRating rating={4} />
               </CardTitle>

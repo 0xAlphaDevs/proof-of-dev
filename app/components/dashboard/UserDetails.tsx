@@ -14,6 +14,7 @@ import { Label } from "@/app/components/ui/label";
 import { createPublicClient, getContract, http, namehash } from "viem";
 import { sepolia } from "viem/chains";
 import { address, abi } from "@/lib/contracts/ENSRegistryWithFallback.json";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -24,6 +25,7 @@ interface FormData {
 }
 
 export function UserDetails() {
+  const router = useRouter();
   const [formData, setFormData] = React.useState<FormData>({
     username: "",
     bio: "",
@@ -42,40 +44,42 @@ export function UserDetails() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    localStorage.setItem("pod-identity", JSON.stringify(formData));
+    router.push("/profile");
   };
 
-  async function checkRecordExists(label: string) {
-    // create client
-    const publicClient = createPublicClient({
-      chain: sepolia,
-      transport: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
-    });
-    // 1. Create contract instance
-    const contract = getContract({
-      address: address as `0x${string}`,
-      abi: abi,
-      client: publicClient,
-    });
+  // async function checkRecordExists(label: string) {
+  //   // create client
+  //   const publicClient = createPublicClient({
+  //     chain: sepolia,
+  //     transport: http(process.env.NEXT_PUBLIC_SEPOLIA_API_URL),
+  //   });
+  //   // 1. Create contract instance
+  //   const contract = getContract({
+  //     address: address as `0x${string}`,
+  //     abi: abi,
+  //     client: publicClient,
+  //   });
 
-    // 2. Call contract methods
-    const nameHash: string = namehash(label);
-    console.log(nameHash);
+  //   // 2. Call contract methods
+  //   const nameHash: string = namehash(label);
+  //   console.log(nameHash);
 
-    const result = await contract.read.recordExists([nameHash]);
+  //   const result = await contract.read.recordExists([nameHash]);
 
-    console.log(result);
-  }
+  //   console.log(result);
+  // }
 
   return (
     <div className="z-40">
-      <p className="flex justify-center pb-4">
+      {/* <p className="flex justify-center pb-4">
         Oh No! You dont have a POD Identity. Mint one now!
-      </p>
+      </p> */}
       <div className="px-[30%]">
         <Card className="w-[]">
           <CardHeader>
             <CardTitle className="text-center text-xl">
-              Mint your POD Identity
+              Create your POD Identity
             </CardTitle>
             {/* <CardDescription>Enter the details below to mint your POD identities.</CardDescription> */}
           </CardHeader>
@@ -83,7 +87,7 @@ export function UserDetails() {
             <form onSubmit={handleSubmit}>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="username">Username</Label>
+                  <Label htmlFor="username">Name</Label>
                   <Input
                     id="username"
                     name="username"
@@ -134,7 +138,7 @@ export function UserDetails() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Mint POD Identity
+                  Create POD Identity
                 </Button>
               </div>
             </form>
