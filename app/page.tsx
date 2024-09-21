@@ -23,6 +23,7 @@ const checkIsDarkSchemePreferred = () => {
 
 export default function Main() {
   const [isDarkMode, setIsDarkMode] = useState(checkIsDarkSchemePreferred);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
   //  const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Main() {
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: light)"
     );
     const handleChange = () => setIsDarkMode(checkIsDarkSchemePreferred());
 

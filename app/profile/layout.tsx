@@ -21,11 +21,7 @@ const links = [
   },
 ];
 
-export default function Leaderboard({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Profile({ children }: { children: React.ReactNode }) {
   return (
     <section className="">
       <Navbar />

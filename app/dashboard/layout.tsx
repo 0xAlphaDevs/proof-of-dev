@@ -5,7 +5,7 @@ import { LayoutDashboardIcon, SearchIcon, AwardIcon } from "lucide-react";
 
 const links = [
   {
-    href: "/dashboard/profile",
+    href: "/profile",
     text: "Profile",
     image: <LayoutDashboardIcon className="h-6 w-6" />,
   },
