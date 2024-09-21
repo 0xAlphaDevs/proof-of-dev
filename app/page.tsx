@@ -132,21 +132,21 @@ export default function Main() {
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Seamless user onbaording using Dynamic
             </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Sybil resistance using World ID verification
             </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-violet-400 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Endorsement attestations using Sign Protocol
             </CardDescription>
           </CardHeader>
         </Card>
